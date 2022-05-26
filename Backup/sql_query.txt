@@ -1,0 +1,10 @@
+UPDATE `comments_db` SET `annotation1`=' ',`annotation2`=' ',`annotation3`=' ' 
+WHERE `annotation1` <> 'TO-DELETE'
+AND `annotation2` <> 'TO-DELETE'
+AND `annotation3` <> 'TO-DELETE'
+AND `annotation1` <> `annotation2`
+AND  `annotation1` <> `annotation3`
+AND `annotation2` <> `annotation3`
+AND `annotation1` <> ' '
+AND `annotation2` <> ' '
+AND `annotation3` <> ' '

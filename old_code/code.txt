@@ -1,0 +1,26 @@
+translator = Translator()
+
+df = pd.read_csv('Datasets/Tweets.csv')
+
+reviews = df['text'].tolist()
+annotations = df['airline_sentiment'].tolist()
+
+maltese_reviews_sent = []
+maltese_reviews_par = []
+for i in range(len(reviews)):
+    rev = reviews[i]
+    rev = rev.replace("<br /><br />", " ")
+    temp_sent = sent_tokenize(rev)
+    par_review = ''
+    for sent in temp_sent:
+        output = translator.translate(sent, src='en', dest='mt')
+        maltese_reviews_sent.append((output.text,annotations[i]))
+        par_review+=output.text
+    
+    maltese_reviews_par.append((par_review,annotations[i]))
+           
+
+
+df = df.drop(columns=['review'])
+df.insert(0, 'maltese reviews', maltese_reviews_sent)
+df.to_csv('Output Files/IMDB Maltese.csv', index=False)
